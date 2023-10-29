@@ -15,7 +15,8 @@ global StaticColor := "0xF61FF9" ;  RGB format (0xRRGGBB)
 PJColor :="0xF61FF9" ; CancelBox colore
  
 F4::Reload
- 
+
+
  
 tempVar:=0
 F3::
@@ -31,21 +32,33 @@ F3::
 			{
 			  
 				Click(1186,376) ; LeftBorb 
-				 
+				 sleep,5
 				Click(1284,370) ; RightBorb
-				 
+				 sleep,5 
 				Click(1398,381) ; start 
-			 } 
+				 sleep,5
+			 }
 			 
-		
+			 
+		CompletTrades()
+		CompletTrades()
 		RefreshTrades()
-		
 		 sleep,11
 	
 	}
       
 }
 
+ CompletTrades()
+ {
+		Click(1406,371) ;Complet trade
+		Click(1406,505) ;Complet trade
+		Click(1406,636) ;Complet trade
+		Click(1406,786) ;Complet trade
+	 
+	 
+ 
+ }
 Click(x,y)
 {
 		 	Click, %x%, %y% down ; accept
