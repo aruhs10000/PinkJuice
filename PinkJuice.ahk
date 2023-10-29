@@ -1,4 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿ #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
@@ -12,38 +12,61 @@ toggle = 0
 ; Define the RGB color value of red gem
 global StaticColor := "0xF61FF9" ;  RGB format (0xRRGGBB)
    
-PJColor :="0xF61FF9" ; CancelBox colore
+PJColor :="0xF61FF9" ; PinkJuiceBox colore
+PJColor2 :="0xF825F9" ; PinkJuiceBox colore
+OrangeColor :="0x1560E1" ; BorbSelectBox colore
+FinalColor :="0x4A7197" ; After Claiming All Trades Its Color That Remains colore
+GreenColor :="0x15EA6B" ;  
  
 F4::Reload
 
 
- 
-tempVar:=0
+count:=0
 F3::
 {
  
 	toggle := !toggle
 	While toggle
 	{ 
-	 	 PJColor:= GetColor(1001,372)
-			 
-			; MsgBox % "Pink juice color: " ColorCancel
-			 if (isPJ(1001,372)  )  
+	 	   
+			; if ((isPJ(1001,372) and ( GetColor(1002,373) =  PJColor2  )) or GetColor(1001,367) = GreenColor  )  
+			 if ((isPJ(1001,372) and ( GetColor(1002,373) =  PJColor2  )) )  
 			{
-			  
-				Click(1186,376) ; LeftBorb 
-				 sleep,5
-				Click(1284,370) ; RightBorb
-				 sleep,5 
-				Click(1398,381) ; start 
-				 sleep,5
+				
+				
+			
+				while(GetColor(1181,364)!= OrangeColor)
+				{
+					Click(1186,376) ; LeftBorb 
+					sleep,5
+					Click(1406,786) ;Complet trade
+				}
+			 
+				while(GetColor(1264,364)!=OrangeColor)
+				{
+					Click(1284,370) ; RightBorb
+					sleep,5
+					Click(1406,786) ;Complet trade
+				}
+				while(GetColor(1376,374)!=FinalColor)
+				{
+					Click(1398,381) ; start
+					sleep,5
+					Click(1406,786) ;Complet trade
+				}
+				 
+				 count++
 			 }
-			 
-			 
-		CompletTrades()
-		CompletTrades()
-		RefreshTrades()
-		 sleep,11
+			 RefreshTrades()
+			 if(count = 4){
+				count:=0
+				sleep,30000
+				
+				CompletTrades()  
+			 }
+ 
+		
+		 sleep,22
 	
 	}
       
@@ -51,20 +74,27 @@ F3::
 
  CompletTrades()
  {
-		Click(1406,371) ;Complet trade
-		Click(1406,505) ;Complet trade
-		Click(1406,636) ;Complet trade
-		Click(1406,786) ;Complet trade
-	 
-	 
+		;while( GetColor(1380,635) != FinalColor )
+		;{
+		;	Click(1395,635) ;Complet trade
+		;	 
+		;}
+      tempI:=0
+	  while(tempI<15)
+	  {
+		Click(1395,635) ;Complet trade
+		 tempI++
+	  }
+	  
  
  }
 Click(x,y)
 {
-		 	Click, %x%, %y% down ; accept
-			 sleep,4
-			Click, %x%, %y% up
-		
+			Send {Click %x%, %y%}
+		 ;	Click, %x%, %y% down ; accept
+			; sleep,4
+		;	Click, %x%, %y% up
+		 
 	 
 }
 GetColor(x,y)
@@ -83,7 +113,7 @@ RefreshTrades()
 }
 isPJ(x,y){
 
-		  PJColor :=GetColor(x,y)
+		PJColor :=GetColor(x,y)
 		if (PJColor = StaticColor)
 		{
 			  
@@ -93,3 +123,10 @@ isPJ(x,y){
 
 	return false
 }
+F5::
+{
+  PJColor:= GetColor(1001,367)
+   MsgBox % "Pink juice color: " PJColor " " OrangeColor
+		 	
+}
+ 
