@@ -24,7 +24,8 @@ F4::Reload
 count:=0
 F3::
 {
- 
+ SetDefaultMouseSpeed, 2
+
 	toggle := !toggle
 	While toggle
 	{ 
@@ -40,6 +41,7 @@ F3::
 					Click(1186,376) ; LeftBorb 
 					sleep,5
 					Click(1406,786) ;Complet trade
+					 
 				}
 			 
 				while(GetColor(1264,364)!=OrangeColor)
@@ -90,7 +92,7 @@ F3::
  }
 Click(x,y)
 {
-			Send {Click %x%, %y%}
+			SendEvent {Click %x%, %y%}
 		 ;	Click, %x%, %y% down ; accept
 			; sleep,4
 		;	Click, %x%, %y% up
