@@ -62,13 +62,13 @@ F3::
 			 RefreshTrades()
 			 if(count = 4){
 				count:=0
-				sleep,30000
+				sleep,31000 ;30 last trade and 1s timing error
 				
 				CompletTrades()  
 			 }
  
 		
-		 sleep,22
+		 sleep,22 ; If too fast can cause random trade acceptance
 	
 	}
       
@@ -86,6 +86,7 @@ F3::
 	  {
 		Click(1395,635) ;Complet trade
 		 tempI++
+		 sleep,5 ; In case of lag error
 	  }
 	  
  
