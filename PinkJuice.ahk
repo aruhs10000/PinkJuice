@@ -16,8 +16,10 @@ PJColor :="0xF61FF9" ; PinkJuiceBox colore
 PJColor2 :="0xF825F9" ; PinkJuiceBox colore
 OrangeColor :="0x1560E1" ; BorbSelectBox colore
 FinalColor :="0x4A7197" ; After Claiming All Trades Its Color That Remains colore
-GreenColor :="0x15EA6B" ;  
- 
+GreenColor :="0x15EA6B" ;   green for elixirs or spores?
+global ActiveFinishColor :="0x8AD2FD"
+global NotActiveFinishColor :="0xD2F1FF"
+
 F4::Reload
 
 
@@ -29,9 +31,9 @@ F3::
 	toggle := !toggle
 	While toggle
 	{ 
-	 	   
-			; if ((isPJ(1001,372) and ( GetColor(1002,373) =  PJColor2  )) or GetColor(1001,367) = GreenColor  )  
-			 if ((isPJ(1001,372) and ( GetColor(1002,373) =  PJColor2  )) )  
+	 	  ;send {WheelUp 6}
+			;if ((isPJ(1001,372) and ( GetColor(1002,373) =  PJColor2  )) or GetColor(1001,367) = GreenColor  )  
+			if ((isPJ(1001,372) and ( GetColor(1002,373) =  PJColor2  )) )  
 			{
 				
 				
@@ -39,22 +41,22 @@ F3::
 				while(GetColor(1181,364)!= OrangeColor)
 				{
 					Click(1186,376) ; LeftBorb 
-					sleep,5
-					Click(1406,786) ;Complet trade
+					sleep,10
+					Click(1186,420) ;Complet trade
 					 
 				}
 			 
 				while(GetColor(1264,364)!=OrangeColor)
 				{
 					Click(1284,370) ; RightBorb
-					sleep,5
-					Click(1406,786) ;Complet trade
+					sleep,10
+					Click(1284,420) ;Complet trade
 				}
 				while(GetColor(1376,374)!=FinalColor)
 				{
 					Click(1398,381) ; start
-					sleep,5
-					Click(1406,786) ;Complet trade
+					sleep,10
+					Click(1406,395) ;Complet trade
 				}
 				 
 				 count++
@@ -71,23 +73,34 @@ F3::
 		 sleep,22 ; If too fast can cause random trade acceptance
 	
 	}
-      
+      return 
 }
 
  CompletTrades()
  {
-		;while( GetColor(1380,635) != FinalColor )
-		;{
-		;	Click(1395,635) ;Complet trade
-		;	 
-		;}
+		 
+			;PJColor := GetColor(1454,630)
+			;if(PJColor = NotActiveFinishColor)
+			;	MsgBox,"Tak"
+			;else{
+			;	MsgBox,"Nie"
+			;
+			;	MsgBox % "Pink juice color: " PJColor " FinishColor" NotActiveFinishColor
+			;}
+		Click(1395,635)
+		 while( GetColor(1454,630) = ActiveFinishColor ) ;ActiveFinishColor "0x8AD2FD" NotActiveFinishColor :="0xD2F1FF"
+		 {
+		 	Click(1395,635) ;Complet trade
+		 	 ;Click(1395,610 ) ;Complet trade
+		  
+		 }
       tempI:=0
-	  while(tempI<15)
-	  {
-		Click(1395,635) ;Complet trade
-		 tempI++
-		 sleep,5 ; In case of lag error
-	  }
+	 ; while(tempI<15)
+	 ; {
+	;	Click(1395,635) ;Complet trade
+	;	 tempI++
+	;	 sleep,5 ; In case of lag error
+	;  }
 	  
  
  }
@@ -128,8 +141,10 @@ isPJ(x,y){
 }
 F5::
 {
-  PJColor:= GetColor(1001,367)
-   MsgBox % "Pink juice color: " PJColor " " OrangeColor
-		 	
+   
+     PJColor:=  GetColor(1454,630)
+     MsgBox % "Pink juice color: " PJColor " " NotActiveFinishColor
+	 
+	
 }
  
