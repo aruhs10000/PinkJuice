@@ -67,7 +67,7 @@ F3::
 			 if(count = 4){
 				count:=0
 				sleep,31000 ;30 last trade and 1s timing error
-				
+				WinActivate, Leaf Blower Revolution
 				CompletTrades()  
 			 }
  
