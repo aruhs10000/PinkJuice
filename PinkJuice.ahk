@@ -20,14 +20,16 @@ GreenColor :="0x15EA6B" ;   green for elixirs or spores?
 global ActiveFinishColor :="0x8AD2FD"
 global NotActiveFinishColor :="0xD2F1FF"
 
-F4::Reload
-
-
+F4::
+{
+Reload  
+return
+}
 count:=0
 F3::
 {
- SetDefaultMouseSpeed, 2
-
+	SetDefaultMouseSpeed, 2
+	Wheel_disabled :=true
 	toggle := !toggle
 	While toggle
 	{ 
@@ -147,4 +149,18 @@ F5::
 	 
 	
 }
- 
+ WheelUp::
+ {
+	Send, {WheelUp} 
+	return
+ }
+ WheelDown::
+ {
+	Send, {WheelDown} 
+	return
+ }
+#If (Wheel_disabled)
+{
+	WheelUp:: return
+	WheelDown:: return
+}
